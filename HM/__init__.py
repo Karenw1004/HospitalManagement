@@ -17,25 +17,3 @@ app.config['TESTING'] = True
 app.register_blueprint(core)
 # app.register_blueprint(users)
 app.register_blueprint(error_pages)
-
-
-
-
-# @app.route('/')
-# def login():
-
-# from database import *
-# from flask import Flask, render_template
-
-
-
-
-# # Initialisation
-# database().__init__
-# app = Flask(__name__)
-
-
-# @app.route('/')
-# def login():
-    
-    
