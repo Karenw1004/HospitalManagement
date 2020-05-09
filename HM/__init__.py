@@ -6,13 +6,27 @@ from flask import Flask, render_template
 from HM.core.views import core
 # from HM.users.views import users
 from HM.error_pages.handlers import error_pages
-from HM.database import *
+from flask_login import LoginManager, UserMixin
 
-# Initialisation
-database().__init__
 app = Flask(__name__)
 app.config['TESTING'] = True
 
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+class User(UserMixin):
+  def __init__(self, doctor_id, password, address, is_at_work):
+    self.doctor_id = doctor_id
+    self.password = password
+    self.address = address
+    self.is_at_work = is_at_work
+
+# callback to reload the user object        
+@login_manager.user_loader
+def load_user(userid):
+    return User(userid)
 
 app.register_blueprint(core)
 # app.register_blueprint(users)

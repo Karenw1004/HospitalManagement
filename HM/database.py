@@ -2,15 +2,14 @@ import datetime
 import mysql.connector
 
 class database:
-    #mysql test
     #source: https://www.youtube.com/watch?v=xgyVilYfJEo, https://dev.mysql.com/doc/connector-python/en/connector-python-api-errors-error.html
     def __init__(self):
         self.conn = 0
         self.mycursor = 0
         self.working = False
         try:
-            self.conn=mysql.connector.connect(user='karenws',password='eiR4eiyi',host='mysql.eecs.ku.edu',database='karenws')
-            self.mycursor=self.conn.cursor(buffered=True)
+            self.conn = mysql.connector.connect(user='karenws',password='eiR4eiyi',host='mysql.eecs.ku.edu',database='karenws')
+            self.mycursor = self.conn.cursor(buffered=True)
             self.mycursor.execute("SHOW TABLES")            
             print(self.mycursor.fetchall())
             self.working = True
@@ -18,29 +17,30 @@ class database:
             print("database() error: MySQL-Connector could not be imported")
         except mysql.connector.Error as err:
             print("database() error: {}".format(err))
+    
+    def login(self, doctor_id, password):
+        """ 
+        Check user credential 
+        
+        Param:
+        - username (str)
+        - password (str)
+        Return:
+        - (bool)
+        """
+        if (self.working):
+            
+            self.mycursor.execute(f"SELECT * from doctor where DOCTOR_ID={doctor_id}")
+            result = self.mycursor.fetchall()
 
-    # def addScore(self, score):
-    #     """take score and put it into the database
-    #     """
-    #     if(self.working):
-    #         add_score = ("INSERT INTO scores_alltime (score, name, timestamp) VALUES (%s, %s, %s)")
-    #         score_data = (score, 'test', datetime.datetime.now())
-    #         self.mycursor.execute(add_score, score_data)
-    #     #    self.printTable()
+            if len(result) == 1:
+                # Check if password match
+                if (result[0][1] == password ):
+                    return True
+                else:
+                    return False # Wrong Password
+                return True
+            
+            else:
+                return False # User not found
 
-    # def printTable(self):
-    #     """print all the scores in the high scores table
-    #     """
-    #     if(self.working):
-    #         self.mycursor.execute("SELECT score "
-    #             "FROM scores_alltime "
-    #             "ORDER BY score DESC "
-    #             "LIMIT 0 , 30")
-    #         #print(self.mycursor.fetchall())
-    #         return self.mycursor.fetchall()
-    #     return "COULD NOT CONNECT TO DATABASE"
-    #     """to be implemented...
-    #     self.mycursor.execute("SELECT COUNT(*) FROM fooTable")
-    #             UPDATE table_name
-    #     SET column1=value1,column2=value2,...
-    #     WHERE some_column=some_value;"""
