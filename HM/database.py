@@ -8,7 +8,7 @@ class database:
         self.mycursor = 0
         self.working = False
         try:
-            self.conn = mysql.connector.connect(user='karenws',password='eiR4eiyi',host='mysql.eecs.ku.edu',database='karenws')
+            self.conn = mysql.connector.connect(user='karenws',password='eiR4eiyi',host='mysql.eecs.ku.edu',database='karenws',charset='utf8')
             self.mycursor = self.conn.cursor(buffered=True)
             self.mycursor.execute("SHOW TABLES")            
             print(self.mycursor.fetchall())
