@@ -1,10 +1,48 @@
 {% extends "base.html" %}
 
 {% block css_link %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/dashboard.css') }}">
 {% endblock %}
 
 {% block content %}
 <body>
-  <h1>DASHBOARD</h1>
-</html>
-{% endblock %}
+    <div class = "wallpaper">
+        <header class = "topwallpaper">
+            <nav class = "navtop">
+                <a href="login.html" class="navbar-brand">
+                    <div class ="toplogo">
+                        HospitalManagement
+                    </div>
+                </a>
+            </nav>
+        </header>
+        <div class = "contentwallpaper">
+            <div class = "heading">
+                Dashtable
+            </div>
+            <br>
+            <a href="patient.html">
+                <div class = "pwallpaper" >
+                    <br>
+                    <div class="text-uppercase">Patient</div>
+                </div>
+                    <div class="h1 m0 text-bold" id="patientcount"></div>
+            </a>  
+            <a href="doctor.html">
+                <div class = "dwallpaper" >
+                    <br>
+                    <div class="text-uppercase">Doctor</div>
+                </div>
+                    <div class="h1 m0 text-bold" id="doctorcount"></div>
+            </a>
+            <a href="Bed.html">
+                <div class = "bwallpaper" >
+                    <br>
+                    <div class="text-uppercase">Bed</div>
+                </div>
+                    <div class="h1 m0 text-bold" id="Bedcount"></div>
+            </a>
+        </div>
+        </html>
+        {% endblock %}
+
