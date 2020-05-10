@@ -56,10 +56,7 @@ class database:
             self.mycursor.execute("SHOW TABLES")
             table_name_list = self.mycursor.fetchall()
 
-            print(table_name_list)
             result_dict = {}
-            print("result_dcit ist")
-            print(result_dict)
 
             for table_name_tuple in table_name_list:
                 table_name = table_name_tuple[0]
