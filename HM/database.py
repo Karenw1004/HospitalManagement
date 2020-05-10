@@ -10,9 +10,8 @@ class database:
         try:
             self.conn = mysql.connector.connect(user='karenws',password='eiR4eiyi',host='mysql.eecs.ku.edu',database='karenws')
             self.mycursor = self.conn.cursor(buffered=True)
-            self.mycursor.execute("SHOW TABLES")            
-            print(self.mycursor.fetchall())
             self.working = True
+            print("HERE")
         except ImportError:
             print("database() error: MySQL-Connector could not be imported")
         except mysql.connector.Error as err:
@@ -39,8 +38,39 @@ class database:
                     return True
                 else:
                     return False # Wrong Password
-                return True
-            
             else:
-                return False # User not found
+                return False
+            
+        else:
+            return False # Have not set the mysql connector
+    def number_dict(self):
+        """ 
+        Check the number of type(patient,doctor,bed, treatment)
+        
+        Param:
+        - type (str)
+        Return:
+        - number (negative values are not possible unless mysql.connector not connected)
+        """
+        if (self.working):
+            self.mycursor.execute("SHOW TABLES")
+            table_name_list = self.mycursor.fetchall()
+
+            print(table_name_list)
+            result_dict = {}
+            print("result_dcit ist")
+            print(result_dict)
+
+            for table_name_tuple in table_name_list:
+                table_name = table_name_tuple[0]
+                if (table_name == "Posts"):
+                    continue
+                self.mycursor.execute(f"SELECT COUNT(*) FROM {table_name}")
+                result_dict[table_name] = self.mycursor.fetchone()[0]
+            
+            return result_dict
+        else:
+            return -1
+
+
 

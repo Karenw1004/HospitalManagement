@@ -8,8 +8,6 @@ from HM.database import *
 
 core = Blueprint('core',__name__)
 
-# Initialisation
-database().__init__
 
 @core.route('/')
 def index():
@@ -25,7 +23,8 @@ def login():
 
         is_logged_in = database().login(doctor_id, password)
         if (is_logged_in):
-            return render_template('dashboard.html')
+            count_dict = database().number_dict()
+            return render_template('dashboard.html', count_dict=count_dict)
         else:
             error = "Invalid credentials"
             return render_template('login.html', error=error)
