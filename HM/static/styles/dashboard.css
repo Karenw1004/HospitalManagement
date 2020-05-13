@@ -39,6 +39,8 @@ body {
     margin: 0 0 10px 0;
     padding: 0;
     white-space: nowrap;
+    color: #f8f9fa;
+
   }
   
   @media (min-width: 992px) {
@@ -68,10 +70,13 @@ body {
   }
   
   .small-box p {
-    font-size: 1rem;
+    font-size: 1.3rem;
+    color: #f8f9fa;
+    font-weight: bold;
   }
   
   .small-box p > small {
+    color: #f8f9fa;
     color: #f8f9fa;
     display: block;
     font-size: 0.9rem;
