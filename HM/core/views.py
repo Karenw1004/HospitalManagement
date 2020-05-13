@@ -12,7 +12,9 @@ core = Blueprint('core',__name__)
 @core.route('/')
 def index():
     # MORE TO COME!
-    return render_template('index.html')
+    # return render_template('index.html')
+    return render_template('dashboard.html')
+
 
 @core.route('/login', methods=['GET','POST'])
 def login():

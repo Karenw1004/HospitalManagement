@@ -57,17 +57,16 @@ class database:
             table_name_list = self.mycursor.fetchall()
 
             result_dict = {}
-
+            
             for table_name_tuple in table_name_list:
                 table_name = table_name_tuple[0]
-                if (table_name == "Posts"):
-                    continue
-                self.mycursor.execute(f"SELECT COUNT(*) FROM {table_name}")
-                result_dict[table_name] = self.mycursor.fetchone()[0]
-            
+                if (table_name=="bed" or table_name=="doctor" or table_name=="patient" or table_name=="treatment"):
+                    self.mycursor.execute(f"SELECT COUNT(*) FROM {table_name}")
+                    result_dict[table_name] = self.mycursor.fetchone()[0]     
+
             return result_dict
         else:
-            return -1
+            return {}
 
 
 

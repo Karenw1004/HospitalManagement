@@ -6,43 +6,31 @@
 
 {% block content %}
 <body>
-    <div class = "wallpaper">
-        <header class = "topwallpaper">
-            <nav class = "navtop">
-                <a href="login.html" class="navbar-brand">
-                    <div class ="toplogo">
-                        HospitalManagement
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            {% set index = 0 %}
+            {% for key,item in count_dict.items() %}
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box  {{ loop.cycle('bg-info','bg-success','bg-danger','bg-warning') }}">
+                    <div class="inner">
+                        <h3>{{item}}</h3>
+                        <p>{{key|title}}</p>
                     </div>
-                </a>
-            </nav>
-        </header>
-        <div class = "contentwallpaper">
-            <div class = "heading">
-                Dashtable
+                    <div class="icon">
+                        <i class="{{ loop.cycle('fas fa-procedures','fas fa-user-md','fas fa-user-injured','fas fa-syringe' ) }}"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
             </div>
-            <br>
-            <a href="patient.html">
-                <div class = "pwallpaper" >
-                    <br>
-                    <div class="text-uppercase">Patient</div>
-                </div>
-                    <div class="h1 m0 text-bold" id="patientcount">{{count_dict.patient}}</div>
-            </a>  
-            <a href="doctor.html">
-                <div class = "dwallpaper" >
-                    <br>
-                    <div class="text-uppercase">Doctor</div>
-                </div>
-                    <div class="h1 m0 text-bold" id="doctorcount"></div>
-            </a>
-            <a href="Bed.html">
-                <div class = "bwallpaper" >
-                    <br>
-                    <div class="text-uppercase">Bed</div>
-                </div>
-                    <div class="h1 m0 text-bold" id="Bedcount"></div>
-            </a>
+            {% set index = index + 1 %}
+            {% endfor %}
+
         </div>
-        </html>
-        {% endblock %}
+    </div>
+</section>        
+        
+{% endblock %}
 

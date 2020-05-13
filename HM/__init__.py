@@ -10,6 +10,7 @@ from flask_login import LoginManager, UserMixin
 
 app = Flask(__name__)
 app.config['TESTING'] = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 
 login_manager = LoginManager()
