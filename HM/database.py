@@ -30,20 +30,11 @@ class database:
             
             self.mycursor.execute(f"SELECT * from doctor where USERNAME='{username}'")
             result = self.mycursor.fetchall()
-
+    
             if len(result) == 1:
                 # Check if password match
                 if (result[0][2] == password ):
-                   
-                    # if result[1] != None:
-                    #     name = ' '.join(result)
-                    # else:
-                    #     name = result[0] +result[2]   
-                    # change implementation of full_name    
-
-                    # print(name)
-                    
-                    return True
+                    return result
                 else:
                     return False # Wrong Password
             else:

@@ -14,7 +14,6 @@
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            {% set index = 0 %}
             {% for key,item in count_dict.items() %}
             <div class="col-lg-3 col-6">
                 <div class="small-box  {{ loop.cycle('bg-info','bg-success','bg-danger','bg-warning') }}">
@@ -25,10 +24,9 @@
                     <div class="icon">
                         <i class="{{ loop.cycle('fas fa-procedures','fas fa-user-md','fas fa-user-injured','fas fa-syringe' ) }}"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="/{{key}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            {% set index = index + 1 %}
             {% endfor %}
 
         </div>
