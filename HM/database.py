@@ -11,13 +11,12 @@ class database:
             self.conn = mysql.connector.connect(user='karenws',password='eiR4eiyi',host='mysql.eecs.ku.edu',database='karenws',charset='utf8')
             self.mycursor = self.conn.cursor(buffered=True)
             self.working = True
-            print("HERE")
         except ImportError:
             print("database() error: MySQL-Connector could not be imported")
         except mysql.connector.Error as err:
             print("database() error: {}".format(err))
     
-    def login(self, doctor_id, password):
+    def login(self, username, password):
         """ 
         Check user credential 
         
@@ -29,12 +28,21 @@ class database:
         """
         if (self.working):
             
-            self.mycursor.execute(f"SELECT * from doctor where DOCTOR_ID={doctor_id}")
+            self.mycursor.execute(f"SELECT * from doctor where USERNAME='{username}'")
             result = self.mycursor.fetchall()
 
             if len(result) == 1:
                 # Check if password match
-                if (result[0][1] == password ):
+                if (result[0][2] == password ):
+                   
+                    # if result[1] != None:
+                    #     name = ' '.join(result)
+                    # else:
+                    #     name = result[0] +result[2]   
+                    # change implementation of full_name    
+
+                    # print(name)
+                    
                     return True
                 else:
                     return False # Wrong Password
