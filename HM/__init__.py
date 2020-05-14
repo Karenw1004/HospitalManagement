@@ -3,9 +3,7 @@ from flask import Flask, render_template
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_migrate import Migrate
 # from flask_login import LoginManager
-from HM.core.views import core
 # from HM.users.views import users
-from HM.error_pages.handlers import error_pages
 from flask_login import LoginManager, UserMixin
 
 app = Flask(__name__)
@@ -29,6 +27,8 @@ class User(UserMixin):
 def load_user(userid):
     return User(userid)
 
+from HM.core.views import core
 app.register_blueprint(core)
 # app.register_blueprint(users)
+from HM.error_pages.handlers import error_pages
 app.register_blueprint(error_pages)

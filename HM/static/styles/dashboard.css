@@ -2,7 +2,7 @@ html,
 body {
   font-family: 'Jost', sans-serif;;
   height: 100%;
-  background-color: #455A64;
+  background-color: rgba(0,0,0,0);
 }
 
 .small-box {

@@ -11,20 +11,19 @@ core = Blueprint('core',__name__)
 
 @core.route('/')
 def index():
-    # MORE TO COME!
     return render_template('index.html')
 
 @core.route('/login', methods=['GET','POST'])
 def login():
     error = None
     if (request.method == "POST"):
-        doctor_id = request.form["doctor_id"]
+        username = request.form["username"]
         password = request.form["password"]
 
-        is_logged_in = database().login(doctor_id, password)
+        is_logged_in = database().login(username, password)
         if (is_logged_in):
             count_dict = database().number_dict()
-            return render_template('dashboard.html', count_dict=count_dict)
+            return render_template('dashboard.html', count_dict=count_dict,username=username)
         else:
             error = "Invalid credentials"
             return render_template('login.html', error=error)
