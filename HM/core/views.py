@@ -40,6 +40,27 @@ def login():
     else:
         return render_template('login.html', error=error)
 
+@core.route('/register',methods=["GET", "POST"])
+def register():
+    if request.method == "GET":
+        return redirect("/login")
+    
+    if request.method == "POST":
+        name = request.form.get("name")
+
+        username = request.form.get("username")
+        password1 = request.form.get("password1")
+        password2 = request.form.get("password2")
+
+        # db.register(username, password, fullname)
+        return redirect(f"/login?msg=user {username} has been succesfully created")
+
+@core.route('/logout')
+def logout():
+    session.clear()
+    return render_template("login.html", data={"success": "You have logged out"})
+
+
 @core.route('/dashboard', methods=['GET','POST'])
 def dashboard():
     if (is_logged_in()):

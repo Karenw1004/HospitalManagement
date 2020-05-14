@@ -30,7 +30,7 @@ class database:
             
             self.mycursor.execute(f"SELECT * from doctor where USERNAME='{username}'")
             result = self.mycursor.fetchall()
-    
+            print("HERE")
             if len(result) == 1:
                 # Check if password match
                 if (result[0][2] == password ):
@@ -66,6 +66,7 @@ class database:
             return result_dict
         else:
             return {}
+    # def register(self, username, password, fullname, admin=False):
 
 
 
