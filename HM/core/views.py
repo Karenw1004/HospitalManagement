@@ -34,17 +34,12 @@ def login():
             return redirect('/dashboard')
         else:
             error = "Invalid credentials"
-            return render_template('login.html', error=error)
-
-        
+            return render_template('login.html', error=error) 
     else:
         return render_template('login.html', error=error)
 
 @core.route('/register',methods=["GET", "POST"])
 def register():
-    if request.method == "GET":
-        return redirect("/login")
-    
     if request.method == "POST":
         name = request.form.get("name")
 
@@ -53,7 +48,12 @@ def register():
         password2 = request.form.get("password2")
 
         # db.register(username, password, fullname)
-        return redirect(f"/login?msg=user {username} has been succesfully created")
+        return redirect("/login")
+
+        # return redirect(f"/login?msg=user {username} has been succesfully created")
+    else:
+        return render_template('register.html')
+
 
 @core.route('/logout')
 def logout():
