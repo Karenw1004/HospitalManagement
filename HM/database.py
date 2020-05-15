@@ -79,7 +79,6 @@ class database:
             
         else:
             return False
-
     def register(self, username, password, fullname):
         if (self.working):
                 self.mycursor.execute(f"SELECT NAME FROM doctor WHERE USERNAME='{username}';")
@@ -98,5 +97,21 @@ class database:
                     return False
         else:
             return False # Not connected to server
-
+    def get_all_treatment_list(self):
+        if (self.working):
+            self.mycursor.execute(f"SELECT * FROM treatment")
+            result = self.mycursor.fetchall()
+            
+            result_list = []
+            
+            for treament_id, name, price in result:
+                temp_dict = {}
+                temp_dict["TREATMENT_ID"] = treament_id
+                temp_dict["NAME"] = name
+                temp_dict["PRICE"] = price
+                result_list.append(temp_dict) 
+            return result_list
+            
+        else:
+            return False
 

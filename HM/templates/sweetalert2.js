@@ -1,5 +1,4 @@
 $(function() {
-    console.log("HERE");
     const Toast = Swal.mixin({
     toast: true,
     position: 'top',
@@ -11,7 +10,7 @@ $(function() {
         {% for category, message in messages %}
         let msg = '{{ message| capitalize }}';
         let cat = '{{category}}';
-        
+
         if (msg != ''){
             if (cat == "success"){
                 Toast.fire({
