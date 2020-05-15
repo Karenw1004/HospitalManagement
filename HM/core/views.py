@@ -20,7 +20,6 @@ def index():
 
 @core.route('/login', methods=['GET','POST'])
 def login():
-    error = None
     if (request.method == "POST"):
         username = request.form["username"]
         password = request.form["password"]
@@ -33,17 +32,17 @@ def login():
             flash('You were successfully logged in','success')
             return redirect(url_for('core.dashboard'))
         else:
-            error = "Invalid credentials"
-            return render_template('login.html', error=error) 
+            flash('Invalid credentials','error')
+            return render_template('login.html') 
     else:
-        return render_template('login.html', error=error)
+        return render_template('login.html')
 
 @core.route('/register',methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         name = request.form.get("name")
 
-        username = request.form.get("username")
+        username = request.form.get("username").lower()
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
 
@@ -51,11 +50,11 @@ def register():
             flash('Password do not match','error')
             return render_template('register.html')
         else:
-        # db.register(username, password, fullname)
-            return redirect("/login")
+            flash(f'User {username} has been successfully created','success')
+            return redirect(url_for('core.login'))
 
-        # return redirect(f"/login?msg=user {username} has been succesfully created")
     else:
+        print("lol")
         return render_template('register.html')
 
 
@@ -68,8 +67,6 @@ def logout():
 @core.route('/dashboard', methods=['GET','POST'])
 def dashboard():
     if (is_logged_in()):
-        # flash('You were successfully logged in','success')
-
         count_dict = database().number_dict()
         return render_template('dashboard.html', count_dict=count_dict,username=session['username'])
     else:
