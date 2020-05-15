@@ -49,7 +49,7 @@ def register():
 
         if (password1 != password2):
             flash('Password do not match','error')
-            return redirect("/register")
+            return render_template('register.html')
         else:
         # db.register(username, password, fullname)
             return redirect("/login")

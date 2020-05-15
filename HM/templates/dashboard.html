@@ -36,7 +36,7 @@
 {% endblock %}
 
 {% block additional_footer %}
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   
     $(function() {
         const Toast = Swal.mixin({
@@ -48,13 +48,24 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
             {% for category, message in messages %}
-            var msg = '{{ message| capitalize }}'
+            var msg = '{{ message| capitalize }}';
+            var cat = '{{category}}';
+
             if (msg != ''){
-                Toast.fire({
-                    "type": 'success',
-                    "title": msg
-                });
+                if (cat == "success"){
+                    Toast.fire({
+                        "type": 'success',
+                        "title": msg
+                    });
+                } 
+                else if (cat == "error"){
+                    Toast.fire({
+                        "type": 'error',
+                        "title": msg
+                    });
+                }
             }
+
             {% endfor %}
         {% endif %}
         {% endwith %}
@@ -62,6 +73,12 @@
 
     });
 
+</script> -->
+
+<!-- <script src="{{ url_for('static',filename='script/sweetalert2.js') }}"></script> -->
+<script type="text/javascript">
+    {% include "sweetalert2.js" %}
 </script>
+
 {% endblock %}
  
