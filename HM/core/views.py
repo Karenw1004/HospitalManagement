@@ -1,6 +1,6 @@
 # core/views.py
 
-from flask import flash, request, Blueprint, render_template, redirect, session
+from flask import flash, request, Blueprint, render_template, redirect, session, flash, url_for
 # from flask_login import LoginManager, login_user, logout_user, login_required
 # from collections import defaultdict
 # import traceback
@@ -30,8 +30,8 @@ def login():
             session['username'] = result[0][1]
             session['password'] = result[0][2]
             session['name']= result[0][3]
-            session['is_logged_in'] = True
-            return redirect('/dashboard')
+            flash('You were successfully logged in','success')
+            return redirect(url_for('core.dashboard'))
         else:
             error = "Invalid credentials"
             return render_template('login.html', error=error) 
@@ -47,8 +47,12 @@ def register():
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
 
+        if (password1 != password2):
+            flash('Password do not match','error')
+            return redirect("/register")
+        else:
         # db.register(username, password, fullname)
-        return redirect("/login")
+            return redirect("/login")
 
         # return redirect(f"/login?msg=user {username} has been succesfully created")
     else:
@@ -64,6 +68,8 @@ def logout():
 @core.route('/dashboard', methods=['GET','POST'])
 def dashboard():
     if (is_logged_in()):
+        # flash('You were successfully logged in','success')
+
         count_dict = database().number_dict()
         return render_template('dashboard.html', count_dict=count_dict,username=session['username'])
     else:
