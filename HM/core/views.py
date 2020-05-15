@@ -73,6 +73,7 @@ def dashboard():
 @core.route('/patient')
 def patients():
     if (is_logged_in()):
-        return render_template('patient.html')
+        data = db.get_all_patient_info_list()
+        return render_template('patient.html', data=data)
     else:
         return redirect("/login")

@@ -43,14 +43,6 @@ class database:
         else:
             return False # Have not set the mysql connector
     def number_dict(self):
-        """ 
-        Check the number of type(patient,doctor,bed, treatment)
-        
-        Param:
-        - type (str)
-        Return:
-        - number (negative values are not possible unless mysql.connector not connected)
-        """
         if (self.working):
             self.mycursor.execute("SHOW TABLES")
             table_name_list = self.mycursor.fetchall()
@@ -65,7 +57,32 @@ class database:
 
             return result_dict
         else:
-            return {}
+            return False
+    def get_all_patient_info_list(self):
+        if (self.working):
+            self.mycursor.execute(f"SELECT * FROM patient")
+            result = self.mycursor.fetchall()
+            
+            result_list = []
+            
+            for patient_id, name, sex, blood, heart, temp, pulse, bed, room, doctor in result:
+                temp_dict = {}
+                temp_dict["PATIENT_ID"] = patient_id
+                temp_dict["NAME"] = name
+                temp_dict["SEX"] = sex
+                temp_dict["BLOOD"] = blood
+                temp_dict["HEART_RATE"] = heart
+                temp_dict["TEMPERATURE"] = temp
+                temp_dict["PULSE"] = pulse
+                # temp_dict["BED_ID"] = bed
+                # temp_dict["ROOM_ID"] = room
+                # temp_dict["DOCTOR_ID"] = doctor
+                result_list.append(temp_dict) 
+            return result_list
+            
+        else:
+            return False
+
     # def register(self, username, password, fullname, admin=False):
 
 

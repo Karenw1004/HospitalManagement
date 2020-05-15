@@ -43,23 +43,22 @@
                         <th>Patient ID</th>
                         <th>Name</th>
                         <th>Sex</th>
+
                         <th>Blood</th>
                         <th>Heart Rate</th>
                         <th>Temperature</th>
                         <th>Pulse</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>4</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        </tr>
 
+                    <tbody>
+                      {% for dict in data %}
+                      <tr>
+                        {% for key, value in dict.items() %}
+                        <td>{{value}}</td>
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
                     </tbody>
                 </table>
             </div>
