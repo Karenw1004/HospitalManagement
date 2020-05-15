@@ -19,8 +19,6 @@ def dashboard():
         flash('You are not logged in ','warning')
         return redirect(url_for('auth.login'))
 
-
-
 @doctor.route('/patient')
 def patient():
     if (is_logged_in()):
@@ -39,3 +37,5 @@ def treatment():
     else:
         flash('You are not logged in ','warning')
         return redirect(url_for('auth.login'))
+
+

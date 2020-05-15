@@ -10,5 +10,7 @@ from HM.blueprints.auth import auth
 app.register_blueprint(auth)
 from HM.blueprints.doctor import doctor
 app.register_blueprint(doctor)
+from HM.blueprints.patient import patient
+app.register_blueprint(patient)
 from HM.error_pages.handlers import error_pages
 app.register_blueprint(error_pages)
