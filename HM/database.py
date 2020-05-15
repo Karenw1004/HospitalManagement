@@ -74,16 +74,29 @@ class database:
                 temp_dict["HEART_RATE"] = heart
                 temp_dict["TEMPERATURE"] = temp
                 temp_dict["PULSE"] = pulse
-                # temp_dict["BED_ID"] = bed
-                # temp_dict["ROOM_ID"] = room
-                # temp_dict["DOCTOR_ID"] = doctor
                 result_list.append(temp_dict) 
             return result_list
             
         else:
             return False
 
-    # def register(self, username, password, fullname, admin=False):
-
+    def register(self, username, password, fullname):
+        if (self.working):
+                self.mycursor.execute(f"SELECT NAME FROM doctor WHERE USERNAME='{username}';")
+                result = self.mycursor.fetchall()
+                
+                if len(result) == 0: #if none, it is a good username
+                    self.mycursor.execute("SELECT MAX(DOCTOR_ID) FROM doctor;")
+                    the_last_id = self.mycursor.fetchone()[0]  
+                    
+                    sql = ("INSERT INTO `doctor`(`DOCTOR_ID`, `USERNAME`, `PASSWORD`, `NAME`, `IS_AT_WORK`) VALUES (%s, %s, %s, %s, %s) ")
+                    val = (int(the_last_id+1), username, password, fullname,b'0')
+                    self.mycursor.execute(sql, val)
+                    self.conn.commit()
+                    return True
+                else:
+                    return False
+        else:
+            return False # Not connected to server
 
 

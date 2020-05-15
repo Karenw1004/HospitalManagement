@@ -1,4 +1,5 @@
 $(function() {
+    console.log("HERE");
     const Toast = Swal.mixin({
     toast: true,
     position: 'top',
@@ -8,9 +9,9 @@ $(function() {
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
-        var msg = '{{ message| capitalize }}';
-        var cat = '{{category}}';
-
+        let msg = '{{ message| capitalize }}';
+        let cat = '{{category}}';
+        
         if (msg != ''){
             if (cat == "success"){
                 Toast.fire({
@@ -21,6 +22,18 @@ $(function() {
             else if (cat == "error"){
                 Toast.fire({
                     "type": 'error',
+                    "title": msg
+                });
+            }
+            else if (cat == "warning"){
+                Toast.fire({
+                    "type": 'warning',
+                    "title": msg
+                });
+            }
+            else if (cat == "info"){
+                Toast.fire({
+                    "type": 'info',
                     "title": msg
                 });
             }

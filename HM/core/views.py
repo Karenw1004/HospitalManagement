@@ -21,12 +21,12 @@ def index():
 @core.route('/login', methods=['GET','POST'])
 def login():
     if (request.method == "POST"):
-        username = request.form["username"]
+        username = request.form["username"].lower()
         password = request.form["password"]
 
         result = db.login(username, password)
         if (result != False):
-            session['username'] = result[0][1]
+            session['username'] = result[0][1].lower()
             session['password'] = result[0][2]
             session['name']= result[0][3]
             flash('You were successfully logged in','success')
@@ -50,8 +50,14 @@ def register():
             flash('Password do not match','error')
             return render_template('register.html')
         else:
-            flash(f'User {username} has been successfully created','success')
-            return redirect(url_for('core.login'))
+            register_success = db.register(username, password1, name)
+            if (register_success):
+                flash(f'User {username} has been successfully created','success')
+                return redirect(url_for('core.login'))
+
+            else:
+                flash(f'User {username} has already exist','error')
+                return redirect(url_for('core.register'))
 
     else:
         print("lol")
@@ -61,7 +67,9 @@ def register():
 @core.route('/logout')
 def logout():
     session.clear()
-    return render_template("login.html", data={"success": "You have logged out"})
+    flash('You have logged out ','info')
+    return redirect(url_for('core.login'))
+
 
 
 @core.route('/dashboard', methods=['GET','POST'])
@@ -70,6 +78,7 @@ def dashboard():
         count_dict = database().number_dict()
         return render_template('dashboard.html', count_dict=count_dict,username=session['username'])
     else:
+        flash('You are not logged in ','warning')
         return redirect("/login")
 
 
@@ -79,4 +88,5 @@ def patients():
         data = db.get_all_patient_info_list()
         return render_template('patient.html', data=data)
     else:
+        flash('You are not logged in ','warning')
         return redirect("/login")
